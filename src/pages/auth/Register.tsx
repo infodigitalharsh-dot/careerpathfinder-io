@@ -86,7 +86,7 @@ export default function Register() {
       });
 
       // Redirect to onboarding based on role
-      navigate(`/${selectedRole}/onboarding`);
+      navigate(`/onboarding/${selectedRole}`);
     } catch (error) {
       toast({
         title: "Registration Failed",
@@ -113,7 +113,7 @@ export default function Register() {
           icon: User,
           title: "Student Registration",
           description: "Join thousands of students finding their dream internships",
-          color: "bg-blue-100 text-blue-800 border-blue-200",
+          color: "bg-blue-50 text-blue-700 border-blue-200",
           benefits: [
             "Access to 10,000+ verified internships",
             "AI-powered job matching",
@@ -126,7 +126,7 @@ export default function Register() {
           icon: Building2,
           title: "Company Registration",
           description: "Connect with India's brightest young talent",
-          color: "bg-amber-100 text-amber-800 border-amber-200",
+          color: "bg-amber-50 text-amber-700 border-amber-200",
           benefits: [
             "Access to qualified student talent",
             "Streamlined hiring process",
@@ -139,7 +139,7 @@ export default function Register() {
           icon: Shield,
           title: "Ministry Registration",
           description: "Government oversight and platform monitoring",
-          color: "bg-purple-100 text-purple-800 border-purple-200",
+          color: "bg-purple-50 text-purple-700 border-purple-200",
           benefits: [
             "Platform oversight and monitoring",
             "Student progress tracking",
@@ -152,7 +152,7 @@ export default function Register() {
           icon: User,
           title: "Registration",
           description: "Create your account",
-          color: "bg-gray-100 text-gray-800 border-gray-200",
+          color: "bg-gray-50 text-gray-700 border-gray-200",
           benefits: []
         };
     }
@@ -165,7 +165,7 @@ export default function Register() {
     <div className="min-h-screen bg-gradient-to-br from-background via-accent/20 to-primary-lighter/30 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-pattern-dots opacity-5" />
       
-      <div className="w-full max-w-2xl relative">
+      <div className="w-full max-w-6xl relative">
         {/* Back to Home */}
         <Link 
           to="/" 
@@ -184,7 +184,7 @@ export default function Register() {
           <p className="text-muted-foreground">Government of India</p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-6">
+        <div className="grid lg:grid-cols-2 gap-8">
           {/* Benefits Card */}
           <Card className="card-elevated">
             <CardHeader>
@@ -272,7 +272,7 @@ export default function Register() {
                           <Input
                             id="email"
                             type="email"
-                            placeholder="your@email.com"
+                            placeholder={selectedRole === "ministry" ? "official@gov.in" : "your@email.com"}
                             value={formData.email}
                             onChange={(e) => handleInputChange("email", e.target.value)}
                             className="pl-10"
