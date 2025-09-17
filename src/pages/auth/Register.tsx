@@ -27,7 +27,7 @@ import {
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedRole, setSelectedRole] = useState<"student" | "company">("student");
+  const [selectedRole, setSelectedRole] = useState<"student" | "company" | "ministry">("student");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -41,10 +41,10 @@ export default function Register() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const roleFromUrl = searchParams.get("role") as "student" | "company";
+  const roleFromUrl = searchParams.get("role") as "student" | "company" | "ministry";
   
   useState(() => {
-    if (roleFromUrl && ["student", "company"].includes(roleFromUrl)) {
+    if (roleFromUrl && ["student", "company", "ministry"].includes(roleFromUrl)) {
       setSelectedRole(roleFromUrl);
     }
   });
@@ -126,12 +126,25 @@ export default function Register() {
           icon: Building2,
           title: "Company Registration",
           description: "Connect with India's brightest young talent",
-          color: "bg-green-100 text-green-800 border-green-200",
+          color: "bg-amber-100 text-amber-800 border-amber-200",
           benefits: [
-            "Access to 125,000+ verified students",
-            "AI-curated candidate recommendations",
-            "Government compliance support",
-            "Free posting for first 5 roles"
+            "Access to qualified student talent",
+            "Streamlined hiring process",
+            "Government partnership benefits",
+            "Analytics and reporting tools"
+          ]
+        };
+      case "ministry":
+        return {
+          icon: Shield,
+          title: "Ministry Registration",
+          description: "Government oversight and platform monitoring",
+          color: "bg-purple-100 text-purple-800 border-purple-200",
+          benefits: [
+            "Platform oversight and monitoring",
+            "Student progress tracking",
+            "Company compliance management",
+            "Data analytics and insights"
           ]
         };
       default:
@@ -185,7 +198,9 @@ export default function Register() {
               <CardDescription>
                 {selectedRole === "student" 
                   ? "Transform your career with India's most comprehensive internship platform"
-                  : "Find exceptional talent and grow your business with government support"
+                  : selectedRole === "company"
+                  ? "Find exceptional talent and grow your business with government support"
+                  : "Monitor and oversee the PM Internship Scheme implementation"
                 }
               </CardDescription>
             </CardHeader>
@@ -217,7 +232,7 @@ export default function Register() {
             <CardContent className="space-y-6">
               {/* Role Selection */}
               <Tabs value={selectedRole} onValueChange={(value) => setSelectedRole(value as any)}>
-                <TabsList className="grid w-full grid-cols-2">
+                <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="student" className="flex items-center space-x-2">
                     <User className="h-4 w-4" />
                     <span>Student</span>
@@ -226,6 +241,10 @@ export default function Register() {
                     <Building2 className="h-4 w-4" />
                     <span>Company</span>
                   </TabsTrigger>
+                  <TabsTrigger value="ministry" className="flex items-center space-x-2">
+                    <Shield className="h-4 w-4" />
+                    <span>Ministry</span>
+                  </TabsTrigger>
                 </TabsList>
 
                 <TabsContent value={selectedRole} className="space-y-4 mt-6">
@@ -233,12 +252,12 @@ export default function Register() {
                   <form onSubmit={handleRegister} className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="fullName">
-                        {selectedRole === "student" ? "Full Name" : "Company Name"}
+                        {selectedRole === "student" ? "Full Name" : selectedRole === "company" ? "Company Name" : "Official Name"}
                       </Label>
                       <Input
                         id="fullName"
                         type="text"
-                        placeholder={selectedRole === "student" ? "Enter your full name" : "Enter company name"}
+                        placeholder={selectedRole === "student" ? "Enter your full name" : selectedRole === "company" ? "Enter company name" : "Enter your official name"}
                         value={formData.fullName}
                         onChange={(e) => handleInputChange("fullName", e.target.value)}
                         required

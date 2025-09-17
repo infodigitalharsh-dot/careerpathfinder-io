@@ -9,6 +9,7 @@ import Register from "./pages/auth/Register";
 import StudentDashboard from "./pages/student/Dashboard";
 import CompanyDashboard from "./pages/company/Dashboard";
 import AdminDashboard from "./pages/admin/Dashboard";
+import StudentOnboarding from "./pages/onboarding/StudentOnboarding";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
