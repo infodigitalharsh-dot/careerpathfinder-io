@@ -25,9 +25,9 @@ export const FileUpload = ({
   required = false,
   label,
   description,
-  className,
+  className = "",
   existingFiles = []
-}) => {
+}: FileUploadProps) => {
   const [files, setFiles] = useState<File[]>(existingFiles);
   const [dragActive, setDragActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
